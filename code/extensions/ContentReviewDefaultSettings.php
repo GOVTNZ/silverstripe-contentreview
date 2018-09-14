@@ -134,10 +134,10 @@ class ContentReviewDefaultSettings extends DataExtension
         $usersMap = $users->map('ID', 'Title')->toArray();
         asort($usersMap);
 
-        $userField = ListboxField::create('OwnerUsers', _t('ContentReview.PAGEOWNERUSERS', 'Users'), $usersMap)
+        $userField = ListboxField::create('OwnerUsers', _t('ContentReview.PAGEOWNERUSERS', 'Editors'), $usersMap)
             ->setMultiple(true)
             ->setAttribute('data-placeholder', _t('ContentReview.ADDUSERS', 'Add users'))
-            ->setDescription(_t('ContentReview.OWNERUSERSDESCRIPTION', 'Page owners that are responsible for reviews'));
+            ->setDescription(_t('ContentReview.OWNERUSERSDESCRIPTION', 'People who will get an email when page is ready for review'));
 
         $fields->addFieldToTab('Root.ContentReview', $userField);
 
@@ -153,7 +153,7 @@ class ContentReviewDefaultSettings extends DataExtension
         $groupField = ListboxField::create('OwnerGroups', _t('ContentReview.PAGEOWNERGROUPS', 'Groups'), $groupsMap)
             ->setMultiple(true)
             ->setAttribute('data-placeholder', _t('ContentReview.ADDGROUP', 'Add groups'))
-            ->setDescription(_t('ContentReview.OWNERGROUPSDESCRIPTION', 'Page owners that are responsible for reviews'));
+            ->setDescription(_t('ContentReview.OWNERGROUPSDESCRIPTION', 'Groups who will get an email when page is ready for review'));
 
         $fields->addFieldToTab('Root.ContentReview', $groupField);
 
