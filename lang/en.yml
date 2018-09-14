@@ -23,7 +23,7 @@ en:
     NOCOMMENTS: '(no comments)'
     OPTIONS: Options
     OWNERGROUPSDESCRIPTION: 'Groups who will get an email when page is ready for review'
-    OWNERUSERSDESCRIPTION: 'Page owners who will get an email when page is ready for reivew'
+    OWNERUSERSDESCRIPTION: 'People who will get an email when page is ready for review'
     PAGEOWNERGROUPS: Groups
     PAGEOWNERUSERS: Editors
     REVIEWFREQUENCY: 'Review frequency'
