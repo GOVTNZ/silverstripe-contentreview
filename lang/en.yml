@@ -36,7 +36,6 @@ en:
     SAVE: Save
     SECONDREVIEWDAYSBEFORE: 'Second review reminder # days before final review'
     SETTINGSFROM: 'Options are'
-    SUBJECTMATTEREXPERT: 'Subject matter expert'
   ContentReviewEmails:
     REVIEWPAGELINK: 'Review the page in the CMS'
     SUBJECT: 'Page(s) are due for content review'
@@ -54,3 +53,6 @@ en:
     TITLE: 'Pages without a scheduled review.'
   Review:
     EMAILFROM_RIGHTTITLE: 'e.g: do-not-reply@site.com'
+  SubjectMatterExpert:
+    PLURALNAME: 'Subject Matter Experts'
+    SINGULARNAME: 'Subject Matter Expert'

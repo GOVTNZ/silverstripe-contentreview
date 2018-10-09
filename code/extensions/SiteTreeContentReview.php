@@ -25,7 +25,6 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
         "NextReviewDate"    => "Date",
         "LastEditedByName"  => "Varchar(255)",
         "OwnerNames"        => "Varchar(255)",
-        "SubjectMatterExpert" => "Varchar(255)",
         "ReviewInfo"        => "Text"
     );
 
@@ -41,6 +40,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
      */
     private static $has_many = array(
         "ReviewLogs" => "ContentReviewLog",
+        "SubjectMatterExperts" => "SubjectMatterExpert",
     );
 
     /**
@@ -334,6 +334,10 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
 
             $logs = GridField::create("ROReviewNotes", "Review Notes", $this->owner->ReviewLogs(), $logConfig);
 
+            $subjectMatterExpertConfig = GridFieldConfig::create()
+                ->addComponent(new GridFieldSortableHeader());
+
+            $subjectMatterExpert = GridField::create("SubjectMatterExperts", "Subject Matter Experts", $this->owner->SubjectMatterExperts(), $subjectMatterExpertConfig);
 
             $optionsFrom = ReadonlyField::create("ROType", _t("ContentReview.SETTINGSFROM", "Options are"), $this->owner->ContentReviewType);
 
@@ -342,6 +346,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
                 $nextReviewAt->performReadonlyTransformation(),
                 $reviewFreq,
                 $optionsFrom,
+                $subjectMatterExpert,
                 $logs,
             ));
 
@@ -395,7 +400,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
             ->setDescription(_t("ContentReview.REVIEWFREQUENCYDESCRIPTION", "The review date will be set to this far in the future whenever the page is published"));
 
         $reviewInfoField = TextareaField::create("ReviewInfo", _t("ContentReview.REVIEWINFO", "Review information"));
-        $subjectMatterExpert = TextField::create("SubjectMatterExpert", _t("ContentReview.SUBJECTMATTEREXPERT", 'Subject matter expert'));
+        $subjectMatterExpertField = GridField::create("SubjectMatterEpxert", "Subject Matter Experts", $this->owner->SubjectMatterExperts(), GridFieldConfig_RecordEditor::create());
         $notesField = GridField::create("ReviewNotes", "Review Notes", $this->owner->ReviewLogs(), GridFieldConfig_RecordEditor::create());
 
         $fields->addFieldsToTab("Root.ContentReview", array(
@@ -408,8 +413,8 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
                 $reviewFrequency
             )->addExtraClass("review-settings"),
             ReadonlyField::create("ROContentOwners", _t("ContentReview.CONTENTOWNERS", "Content Owners"), $this->getOwnerNames()),
-            $subjectMatterExpert,
             $reviewInfoField,
+            $subjectMatterExpertField,
             $notesField,
         ));
     }
@@ -429,6 +434,18 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
             $reviewLog->ReviewInfo = $reviewInfo;
         }
         $this->owner->ReviewLogs()->add($reviewLog);
+    }
+
+    /**
+     * Creates a Subject Matter Expert data object and connects it to this Page.
+     *
+     * @param string $name
+     */
+    public function addSubjectMatterExpert($name)
+    {
+        $subjectMatterExpert = SubjectMatterExpert::create();
+        $subjectMatterExpert->Name = $name;
+        $this->owner->SubjectMatterExperts()->add($subjectMatterExpert);
     }
 
     /**
