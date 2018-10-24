@@ -400,7 +400,7 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
             ->setDescription(_t("ContentReview.REVIEWFREQUENCYDESCRIPTION", "The review date will be set to this far in the future whenever the page is published"));
 
         $reviewInfoField = TextareaField::create("ReviewInfo", _t("ContentReview.REVIEWINFO", "Review information"));
-        $subjectMatterExpertField = GridField::create("SubjectMatterEpxert", "Subject Matter Experts", $this->owner->SubjectMatterExperts(), GridFieldConfig_RecordEditor::create());
+        $subjectMatterExpertField = GridField::create("SubjectMatterExpert", "Subject Matter Experts", $this->owner->SubjectMatterExperts(), GridFieldConfig_RecordEditor::create());
         $notesField = GridField::create("ReviewNotes", "Review Notes", $this->owner->ReviewLogs(), GridFieldConfig_RecordEditor::create());
 
         $fields->addFieldsToTab("Root.ContentReview", array(
@@ -434,18 +434,6 @@ class SiteTreeContentReview extends DataExtension implements PermissionProvider
             $reviewLog->ReviewInfo = $reviewInfo;
         }
         $this->owner->ReviewLogs()->add($reviewLog);
-    }
-
-    /**
-     * Creates a Subject Matter Expert data object and connects it to this Page.
-     *
-     * @param string $name
-     */
-    public function addSubjectMatterExpert($name)
-    {
-        $subjectMatterExpert = SubjectMatterExpert::create();
-        $subjectMatterExpert->Name = $name;
-        $this->owner->SubjectMatterExperts()->add($subjectMatterExpert);
     }
 
     /**
